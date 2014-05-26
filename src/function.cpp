@@ -15,13 +15,13 @@ Function::Function(double(*func)(double), unsigned int N)
 
 void Function::print_to_console(void)
 {
-	auto iterx = begin(x);
-	auto itery = begin(y);
-	
-	for(iterx = begin(x), itery = begin(y); iterx != end(x), itery != end(y); iterx++, itery++)
+	for(auto iterx = begin(x), itery = begin(y); 
+			 iterx != end(x), itery != end(y);
+			 iterx++, itery++)
 	{
 		std::cout << "x = " << *iterx << "\ty = " << *itery << std::endl;
 	}
+
 }
 
 std::vector<double>Function::getx(void)
@@ -50,7 +50,9 @@ void Function::graph(void)
 	glRasterPos2f(-0.2, y.back());
 	glFlush();
 	
-	for(auto iterx = begin(x), itery = begin(y); iterx != end(x), itery != end(y); iterx++, itery++)
+	for(auto iterx = begin(x), itery = begin(y);
+		   	iterx != end(x), itery != end(y);
+		   	iterx++, itery++)
 	{
 		glRasterPos2f(0.0, *itery);
 		text("-");
@@ -66,7 +68,9 @@ void Function::graph(void)
 
 	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_LINE_STRIP);
-		for(auto iterx = begin(x), itery = begin(y); iterx != end(x), itery != end(y); iterx++, itery++)
+		for(auto iterx = begin(x), itery = begin(y); 
+				iterx != end(x), itery != end(y);
+			   	iterx++, itery++)
 		{
 			glVertex2d(*iterx, *itery);
 		}

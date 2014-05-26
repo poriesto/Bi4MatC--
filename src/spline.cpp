@@ -2,8 +2,10 @@
 //
 #include "spline.hpp"
 #include "someapi.h"
+#include <iostream>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <algorithm>
 
 Spline::Spline(std::vector<double>x, std::vector<double>y)
 {
@@ -79,25 +81,26 @@ l10:    for (i = 2; i <= n; i++)
 		d[2] = 0;
 }
 
-double Spline::seval(double* u)
+double Spline::seval(double u)
 {
 	int i, j, k, n = x.size()-1;
 	double dx;
-	i = 1;
+	i = 0;
 	if (i >= n) i = 1;
-	if (*u < x[i]) goto l10;
-	if (*u <= x[i + 1]) goto l30;
+	if (u < x[i]) goto l10;
+	if (u > x[i]) goto l10;
+	if (u <= x[i + 1]) goto l30;
 
 l10: i = 1;
 	j = n + 1;
 
 
 l20: k = (i + j) / 2;
-	if (*u < x[k]) j = k;
-	if (*u >= x[k]) i = k;
+	if (u < x[k]) j = k;
+	if (u >= x[k]) i = k;
 	if (j >(i + 1)) goto l20;
 
-l30: dx = *u - x[i];
+l30: dx = u - x[i];
 	return y[i] + dx*(b[i] + dx*(c[i] + dx*d[i]));
 }
 
